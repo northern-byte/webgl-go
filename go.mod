@@ -1,3 +1,3 @@
-module github.com/seqsense/webgl-go
+module github.com/northern-byte/webgl-go
 
-go 1.16
+go 1.19
