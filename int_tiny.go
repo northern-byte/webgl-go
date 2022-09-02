@@ -15,7 +15,8 @@ func byteSliceAsUInt32Slice(bytes []byte) []uint32 {
 	up := unsafe.Pointer(&(bytes[0]))
 	pi := (*[1]uint32)(up)
 	buf := (*pi)[:]
-	sh := (*reflect.SliceHeader)(unsafe.Pointer(&buf))
+	var sh *reflect.SliceHeader
+	sh.Data = uintptr(unsafe.Pointer(&buf))
 	sh.Len = n
 	sh.Cap = n
 
@@ -29,7 +30,8 @@ func uint16SliceAsByteSlice(b []uint16) []byte {
 	up := unsafe.Pointer(&(b[0]))
 	pi := (*[1]byte)(up)
 	buf := (*pi)[:]
-	sh := (*reflect.SliceHeader)(unsafe.Pointer(&buf))
+	var sh *reflect.SliceHeader
+	sh.Data = uintptr(unsafe.Pointer(&buf))
 	sh.Len = n
 	sh.Cap = n
 
