@@ -391,7 +391,7 @@ func (gl *WebGL) TexParameteri(texType TextureType, param TextureParameter, val 
 }
 
 func (gl *WebGL) PixelStorei(pixelStoreiType PixelStorei, val interface{}) {
-	gl.gl.Call("texParameteri", int(pixelStoreiType), val)
+	gl.gl.Call("pixelStorei", int(pixelStoreiType), val)
 }
 
 func (gl *WebGL) ActiveTexture(i TextureNumber) {
