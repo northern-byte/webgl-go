@@ -31,6 +31,7 @@ type TransformFeedbackTarget int
 type SyncCondition int
 type SyncFlushCommandBit int
 type WaitSyncResult int
+type PixelStorei int
 
 type Shader js.Value
 type Program js.Value
@@ -71,9 +72,12 @@ type WebGL struct {
 	TEXTURE_MIN_FILTER, TEXTURE_MAG_FILTER, TEXTURE_WRAP_S, TEXTURE_WRAP_T TextureParameter
 	LINEAR, NEAREST, CLAMP_TO_EDGE                                         int
 
+	UNPACK_FLIP_Y_WEBGL PixelStorei
+
 	TEXTURE0 TextureNumber
 
-	ZERO, ONE, SRC_ALPHA, DST_ALPHA, ONE_MINUS_SRC_ALPHA, ONE_MINUS_DST_ALPHA, SRC_COLOR, DST_COLOR, SRC_ALPHA_SATURATE BlendFactor
+	ZERO, ONE, SRC_ALPHA, DST_ALPHA, ONE_MINUS_SRC_ALPHA, ONE_MINUS_DST_ALPHA,
+	SRC_COLOR, DST_COLOR, SRC_ALPHA_SATURATE BlendFactor
 }
 
 func New(canvas js.Value) (*WebGL, error) {
@@ -143,6 +147,8 @@ func New(canvas js.Value) (*WebGL, error) {
 		TEXTURE_MAG_FILTER: TextureParameter(gl.Get("TEXTURE_MAG_FILTER").Int()),
 		TEXTURE_WRAP_S:     TextureParameter(gl.Get("TEXTURE_WRAP_S").Int()),
 		TEXTURE_WRAP_T:     TextureParameter(gl.Get("TEXTURE_WRAP_T").Int()),
+
+		UNPACK_FLIP_Y_WEBGL: PixelStorei(gl.Get("UNPACK_FLIP_Y_WEBGL").Int()),
 
 		LINEAR:        gl.Get("LINEAR").Int(),
 		NEAREST:       gl.Get("NEAREST").Int(),
@@ -382,6 +388,10 @@ func (gl *WebGL) TexImage2D(texType TextureType, level int, internalFmt, fmt Pix
 
 func (gl *WebGL) TexParameteri(texType TextureType, param TextureParameter, val interface{}) {
 	gl.gl.Call("texParameteri", int(texType), int(param), val)
+}
+
+func (gl *WebGL) PixelStorei(pixelStoreiType PixelStorei, val interface{}) {
+	gl.gl.Call("texParameteri", int(pixelStoreiType), val)
 }
 
 func (gl *WebGL) ActiveTexture(i TextureNumber) {
