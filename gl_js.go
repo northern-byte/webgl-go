@@ -72,7 +72,8 @@ type WebGL struct {
 	TEXTURE_MIN_FILTER, TEXTURE_MAG_FILTER, TEXTURE_WRAP_S, TEXTURE_WRAP_T TextureParameter
 	LINEAR, NEAREST, CLAMP_TO_EDGE                                         int
 
-	UNPACK_FLIP_Y_WEBGL PixelStorei
+	PACK_ALIGNMENT, UNPACK_ALIGNMENT, UNPACK_FLIP_Y_WEBGL,
+	UNPACK_PREMULTIPLY_ALPHA_WEBGL, UNPACK_COLORSPACE_CONVERSION_WEBGL PixelStorei
 
 	TEXTURE0 TextureNumber
 
@@ -148,7 +149,11 @@ func New(canvas js.Value) (*WebGL, error) {
 		TEXTURE_WRAP_S:     TextureParameter(gl.Get("TEXTURE_WRAP_S").Int()),
 		TEXTURE_WRAP_T:     TextureParameter(gl.Get("TEXTURE_WRAP_T").Int()),
 
-		UNPACK_FLIP_Y_WEBGL: PixelStorei(gl.Get("UNPACK_FLIP_Y_WEBGL").Int()),
+		PACK_ALIGNMENT:                     PixelStorei(gl.Get("PACK_ALIGNMENT").Int()),
+		UNPACK_ALIGNMENT:                   PixelStorei(gl.Get("UNPACK_ALIGNMENT").Int()),
+		UNPACK_FLIP_Y_WEBGL:                PixelStorei(gl.Get("UNPACK_FLIP_Y_WEBGL").Int()),
+		UNPACK_PREMULTIPLY_ALPHA_WEBGL:     PixelStorei(gl.Get("UNPACK_PREMULTIPLY_ALPHA_WEBGL").Int()),
+		UNPACK_COLORSPACE_CONVERSION_WEBGL: PixelStorei(gl.Get("UNPACK_COLORSPACE_CONVERSION_WEBGL").Int()),
 
 		LINEAR:        gl.Get("LINEAR").Int(),
 		NEAREST:       gl.Get("NEAREST").Int(),
